@@ -1,0 +1,25 @@
+{
+  "name": "xs-signature",
+  "version": "0.0.4",
+  "description": "H5手写签名横屏适配签字板",
+  "main": "index.js",
+  "private": false,
+  "files": [
+    "index.js",
+    "src"
+  ],
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watchAll",
+    "coverage": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "smallSun <1248010874@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "scss": "^0.2.4",
+    "vant": "^4.9.3",
+    "vue": "^3.4.35",
+    "vue-signature-pad": "^3.0.2"
+  }
+}
