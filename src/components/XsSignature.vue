@@ -1,9 +1,5 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, createApp } from "vue";
-import { Icon, Button } from "vant";
-const app = createApp();
-app.use(Icon);
-app.use(Button);
 
 /**
  * 传递接受的值
@@ -45,7 +41,7 @@ const props = defineProps({
  * 传递出去的方法
  * @param close 回退一步的操作
  * @param reset 清空页面所绘制签名操作
- * @param submit 提交获取签名Base64
+ * @param submit 提交获取签名Base64  'empty':签名是否为空值 'data':签名的Base64 'orientation':屏幕翻转方向
  */
 const emit = defineEmits(["close", "reset", "submit"]);
 
@@ -180,11 +176,12 @@ const handleReset = () => {
  * 提交
  */
 const handleGenerate = () => {
-  emit("submit");
+  const { isEmpty, data } = vueSignatureRef.value.saveSignature();
+  const orientation = window.orientation;
+  emit("submit", isEmpty, data, orientation);
 };
 
 onMounted(() => {
-  console.log(document.fullscreenEnabled);
   window.addEventListener("orientationchange", handleOrientationChange);
 });
 
@@ -305,6 +302,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
+@import "vant/lib/index.css";
 .app-container {
   width: 100vmax;
   height: 100vmin;

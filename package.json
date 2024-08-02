@@ -1,7 +1,7 @@
 {
   "name": "xs-signature",
-  "version": "0.0.4",
-  "description": "H5手写签名横屏适配签字板",
+  "version": "0.1.2",
+  "description": "H5手写签名适配横屏",
   "main": "index.js",
   "private": false,
   "files": [
@@ -13,7 +13,7 @@
     "watch": "jest --watchAll",
     "coverage": "jest --coverage"
   },
-  "keywords": [],
+  "keywords": ["signature","vue3","canvas","component"],
   "author": "smallSun <1248010874@qq.com>",
   "license": "ISC",
   "dependencies": {

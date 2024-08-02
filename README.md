@@ -1,5 +1,5 @@
 <h1 align="center">
-XS-SINATURE
+Xs-Signature
 </h1>
 
 <p align="center">
@@ -19,8 +19,8 @@ XS-SINATURE
 
 
 <div>
-<img width="520" src='src/public/images/info.png'  alt=""/>
-<img width="520" src='src/public/images/main.png'  alt=""/>
+<img width="1168" src='src/public/images/info.png'  alt=""/>
+<img width="1168" src='src/public/images/main.png'  alt=""/>
 </div>
 
 <!-- ## 在线访问
@@ -28,17 +28,17 @@ XS-SINATURE
 Gitee Pages: [https://gitee.com/smallsun0110/tiktok](https://gitee.com/smallsun0110/tiktok)(中国地区推荐访问这个地址)    -->
 ## 方法
 
-| Name                                   | Argument Type                                           | Description                                     |
-|:---------------------------------------|:--------------------------------------------------------|-------------------------------------------------|
-| `overlayText`                          | `String`                                                | `自定义页面主体提示语`                                    |
-| `horizontalScreenText`                 | `String`                                                | `自定义翻转提示语`                                      |
-| `title`                                | `String`                                                | `自定义头部标题`                                       |
-| `showHeader`                           | `Boolean`                                               | `是否展示头部`                                        |
-| `showFooter`                           | `Boolean`                                               | `是否展示底部`                                        |
-| `custom`                               | `Boolean`                                               | `是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'` |
-| `close()`                              | `Function`                                              | `回退一步的操作`                                       |
-| `reset()`                              | `Function`                                              | `清空页面所绘制签名操作`                                   |
-| `submit()`                             | `Function`                                              | `提交获取签名Base64`                                  |
+| Name                                                        | Argument Type                                           | Description                                     |
+|:------------------------------------------------------------|:--------------------------------------------------------|-------------------------------------------------|
+| `overlayText`                                               | `String`                                                | `自定义页面主体提示语`                                    |
+| `horizontalScreenText`                                      | `String`                                                | `自定义翻转提示语`                                      |
+| `title`                                                     | `String`                                                | `自定义头部标题`                                       |
+| `showHeader`                                                | `Boolean`                                               | `是否展示头部`                                        |
+| `showFooter`                                                | `Boolean`                                               | `是否展示底部`                                        |
+| `custom`                                                    | `Boolean`                                               | `是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'` |
+| `close()`                                                   | `Function`                                              | `回退一步的操作`                                       |
+| `reset()`                                                   | `Function`                                              | `清空页面所绘制签名操作`                                   |
+| `submit(isEmpty,data,orientation)`                          | `Function`                                              | `提交获取签名Base64` `'empty':签名是否为空值、'data':签名的Base64、'orientation':屏幕翻转方向` |
 
 
 ## 运行
@@ -47,10 +47,10 @@ Gitee Pages: [https://gitee.com/smallsun0110/tiktok](https://gitee.com/smallsun0
 
 ## 功能与建议
 
-目前项目处于开发初期，新功能正在持续添加中，如果你对该插件有任何功能与建议，欢迎在联系作者提出
+目前项目处于开发初期，新功能正在持续添加中，如果你对该组件有任何功能与建议，欢迎联系作者。
 如果你也喜欢本插件的设计思想，非常感谢你对我们的支持！
 
 
 ## 许可协议
 
-MIT © [Sun Jia Hui](https://github.com/smallSun0110)
+MIT © [smallSun](https://github.com/smallSun0110)
