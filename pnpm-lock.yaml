@@ -11,9 +11,6 @@ importers:
       scss:
         specifier: ^0.2.4
         version: 0.2.4
-      vant:
-        specifier: ^4.9.3
-        version: 4.9.3(vue@3.4.35)
       vue:
         specifier: ^3.4.35
         version: 3.4.35
@@ -42,14 +39,6 @@ packages:
 
   '@jridgewell/sourcemap-codec@1.5.0':
     resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
-
-  '@vant/popperjs@1.3.0':
-    resolution: {integrity: sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==}
-
-  '@vant/use@1.6.0':
-    resolution: {integrity: sha512-PHHxeAASgiOpSmMjceweIrv2AxDZIkWXyaczksMoWvKV2YAYEhoizRuk/xFnKF+emUIi46TsQ+rvlm/t2BBCfA==}
-    peerDependencies:
-      vue: ^3.0.0
 
   '@vue/compiler-core@3.4.35':
     resolution: {integrity: sha512-gKp0zGoLnMYtw4uS/SJRRO7rsVggLjvot3mcctlMXunYNsX+aRJDqqw/lV5/gHK91nvaAAlWFgdVl020AW1Prg==}
@@ -127,11 +116,6 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
 
-  vant@4.9.3:
-    resolution: {integrity: sha512-Z5DPgmB2w1TvzWmEjpw0kiBPSR09JgcTILQJObB603MaSB3+E2aBpeXTneJexIHoZskFxCdZfbMsxCSTEqssTw==}
-    peerDependencies:
-      vue: ^3.0.0
-
   vue-signature-pad@3.0.2:
     resolution: {integrity: sha512-o25o+lROfCmzASS2+fU8ZV801kV+D4/02zkZ+ez3NKeiUmbxW7kwlUf5oKQkvA+l7Ou9xGsGLsirBLch3jyX8A==}
     engines: {node: '>=12'}
@@ -163,12 +147,6 @@ snapshots:
       to-fast-properties: 2.0.0
 
   '@jridgewell/sourcemap-codec@1.5.0': {}
-
-  '@vant/popperjs@1.3.0': {}
-
-  '@vant/use@1.6.0(vue@3.4.35)':
-    dependencies:
-      vue: 3.4.35
 
   '@vue/compiler-core@3.4.35':
     dependencies:
@@ -257,13 +235,6 @@ snapshots:
   source-map-js@1.2.0: {}
 
   to-fast-properties@2.0.0: {}
-
-  vant@4.9.3(vue@3.4.35):
-    dependencies:
-      '@vant/popperjs': 1.3.0
-      '@vant/use': 1.6.0(vue@3.4.35)
-      '@vue/shared': 3.4.35
-      vue: 3.4.35
 
   vue-signature-pad@3.0.2(vue@3.4.35):
     dependencies:

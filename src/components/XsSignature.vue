@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, createApp } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { sliceBase64Image, rotateBase64Image } from "../utils";
 
 /**
  * 传递接受的值
@@ -9,6 +10,8 @@ import { ref, computed, onMounted, onBeforeUnmount, createApp } from "vue";
  * @param showHeader 是否展示头部
  * @param showFooter 是否展示底部
  * @param custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'
+ * @param colorList 字体可选颜色集合 默认 '黑色' '红色' '蓝色'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
+ * @param boldList 字体可选粗细集合 默认 '3' '6' '9'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  */
 const props = defineProps({
   overlayText: {
@@ -35,13 +38,29 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  colorList: {
+    type: Array,
+    default: [
+      { id: 1, text: "黑色", value: "rgba(44, 44, 44, 1)" },
+      { id: 2, text: "红色", value: "rgba(209, 26, 48, 1)" },
+      { id: 3, text: "蓝色", value: "rgba(0, 142, 224, 1)" },
+    ],
+  },
+  boldList: {
+    type: Array,
+    default: [
+      { id: 1, text: "细", value: 3 },
+      { id: 2, text: "中等", value: 6 },
+      { id: 3, text: "粗", value: 9 },
+    ],
+  },
 });
 
 /**
  * 传递出去的方法
  * @param close 回退一步的操作
  * @param reset 清空页面所绘制签名操作
- * @param submit 提交获取签名Base64  'empty':签名是否为空值 'data':签名的Base64 'orientation':屏幕翻转方向
+ * @param submit 提交获取签名Base64  'empty':签名是否为空值 'baseFile':签名后裁切的Base64文件 'orientation':屏幕翻转方向
  */
 const emit = defineEmits(["close", "reset", "submit"]);
 
@@ -50,18 +69,8 @@ const isColorChange = ref(false);
 const isBoldChange = ref(false);
 const selectedColor = ref(null);
 const selectedBold = ref(null);
-const selectedColorValue = ref("#000");
-const selectedBoldValue = ref("12");
-const colorList = ref([
-  { id: 1, text: "黑色", value: "rgba(44, 44, 44, 1)" },
-  { id: 2, text: "红色", value: "rgba(209, 26, 48, 1)" },
-  { id: 3, text: "蓝色", value: "rgba(0, 142, 224, 1)" },
-]);
-const boldList = ref([
-  { id: 1, text: "细", value: 3 },
-  { id: 2, text: "中等", value: 6 },
-  { id: 3, text: "粗", value: 9 },
-]);
+const selectedColorValue = ref("");
+const selectedBoldValue = ref("");
 const options = ref({
   penColor: "#000", //设置默认颜色
   maxWidth: 3, //设置默认粗细
@@ -73,7 +82,6 @@ const options = ref({
     isBoldChange.value = false;
   },
 });
-const signImg = ref("");
 
 const isVertica = computed(() => {
   return window.innerWidth > window.innerHeight;
@@ -172,13 +180,19 @@ const handleReset = () => {
   emit("reset");
 };
 
+const baseFile = ref("");
 /**
  * 提交
  */
 const handleGenerate = () => {
   const { isEmpty, data } = vueSignatureRef.value.saveSignature();
   const orientation = window.orientation;
-  emit("submit", isEmpty, data, orientation);
+  sliceBase64Image(data).then((slicedImages) => {
+    rotateBase64Image(slicedImages, 270).then((img) => {
+      baseFile.value = img;
+    });
+  });
+  emit("submit", isEmpty, baseFile.value, orientation);
 };
 
 onMounted(() => {
@@ -206,7 +220,13 @@ onBeforeUnmount(() => {
     <div v-else class="xs-main">
       <div class="header" v-if="showHeader">
         <div class="h-l" @click="toSign" v-if="!custom">
-          <van-icon name="arrow-left" />
+          <div>
+            <img
+              style="height: 24px"
+              src="../public/images/back.png"
+              alt="back"
+            />
+          </div>
           <div>返回</div>
         </div>
         <div class="h-t" v-if="!custom">{{ title }}</div>
@@ -292,8 +312,8 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <div class="f-b" v-if="!custom">
-          <van-button class="f-b-c" @click="handleReset">清空</van-button>
-          <van-button class="f-b-s" @click="handleGenerate">确定</van-button>
+          <button class="f-b-c" @click="handleReset">清空</button>
+          <button class="f-b-s" @click="handleGenerate">确定</button>
         </div>
         <slot name="xs-footer"></slot>
       </div>
@@ -302,7 +322,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "vant/lib/index.css";
 .app-container {
   width: 100vmax;
   height: 100vmin;
@@ -444,9 +463,16 @@ onBeforeUnmount(() => {
       .f-b-c {
         width: 64px;
         height: 32px;
-        background: $white;
+        background: #fff;
         border-radius: 4px;
         border: 1px solid rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      }
+
+      .f-b-c:active {
+        transform: scale(0.98);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
 
       .f-b-s {
@@ -456,6 +482,13 @@ onBeforeUnmount(() => {
         border-radius: 4px;
         margin-left: 12px;
         color: #ffffff;
+        transition: all 0.2s ease;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      }
+
+      .f-b-s:active {
+        transform: scale(0.98);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -522,19 +555,6 @@ onBeforeUnmount(() => {
   .bold {
     margin-bottom: 10px;
   }
-}
-
-:deep(.van-icon) {
-  color: #008ee0;
-}
-
-:deep(.van-popover) {
-  left: 60px !important;
-  top: 190px !important;
-}
-
-:deep(.van-popover__arrow) {
-  display: none;
 }
 
 .color-option {
