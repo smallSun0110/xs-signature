@@ -1,17 +1,17 @@
 {
   "name": "xs-signature",
-  "version": "0.1.6",
+  "version": "0.2.1",
   "description": "H5手写签名适配横屏",
   "main": "index.js",
   "private": false,
   "files": [
     "index.js",
-    "src"
+    "src/**/*.vue"
   ],
   "scripts": {
-    "test": "jest",
-    "watch": "jest --watchAll",
-    "coverage": "jest --coverage"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "signature",

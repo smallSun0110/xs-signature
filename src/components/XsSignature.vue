@@ -4,14 +4,14 @@ import { sliceBase64Image, rotateBase64Image } from "../utils";
 
 /**
  * 传递接受的值
- * @param overlayText 自定义页面主体提示语
- * @param horizontalScreenText 自定义翻转提示语
- * @param title 自定义标题
- * @param showHeader 是否展示头部
- * @param showFooter 是否展示底部
- * @param custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'
- * @param colorList 字体可选颜色集合 默认 '黑色' '红色' '蓝色'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
- * @param boldList 字体可选粗细集合 默认 '3' '6' '9'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
+ * @param  overlayText 自定义页面主体提示语
+ * @param  horizontalScreenText 自定义翻转提示语
+ * @param  title 自定义标题
+ * @param  showHeader 是否展示头部
+ * @param  showFooter 是否展示底部
+ * @param  custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'
+ * @param  colorList 字体可选颜色集合 默认 '黑色' '红色' '蓝色'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
+ * @param  boldList 字体可选粗细集合 默认 '3' '6' '9'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  */
 const props = defineProps({
   overlayText: {
@@ -69,8 +69,8 @@ const isColorChange = ref(false);
 const isBoldChange = ref(false);
 const selectedColor = ref(null);
 const selectedBold = ref(null);
-const selectedColorValue = ref("");
-const selectedBoldValue = ref("");
+const selectedColorValue = ref("#000");
+const selectedBoldValue = ref(3);
 const options = ref({
   penColor: "#000", //设置默认颜色
   maxWidth: 3, //设置默认粗细
@@ -222,7 +222,7 @@ onBeforeUnmount(() => {
         <div class="h-l" @click="toSign" v-if="!custom">
           <div>
             <img
-              style="height: 24px"
+              style="height: 20px; margin-right: 4px"
               src="../public/images/back.png"
               alt="back"
             />

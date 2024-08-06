@@ -33,7 +33,7 @@ $ pnpm install xs-signature
 ## 引入
 
 ```sh
-$ import {XsSignature} from "xs-signature"
+$ import XsSignature from "xs-signature"
 ```
 
 
