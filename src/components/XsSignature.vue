@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import VueSignaturePad from "vue-signature-pad";
 import { sliceBase64Image, rotateBase64Image } from "../utils";
 
 /**
@@ -9,7 +10,7 @@ import { sliceBase64Image, rotateBase64Image } from "../utils";
  * @param  title 自定义标题
  * @param  showHeader 是否展示头部
  * @param  showFooter 是否展示底部
- * @param  custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'
+ * @param  custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'true'
  * @param  colorList 字体可选颜色集合 默认 '黑色' '红色' '蓝色'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  * @param  boldList 字体可选粗细集合 默认 '3' '6' '9'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  */
@@ -36,7 +37,7 @@ const props = defineProps({
   },
   custom: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   colorList: {
     type: Array,
