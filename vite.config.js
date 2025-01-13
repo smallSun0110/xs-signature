@@ -10,7 +10,7 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-  },
+  }, 
   // 第二步
   build: {
     lib: {
@@ -28,5 +28,6 @@ export default defineConfig({
         },
       },
     },
+    sourcemap: 'inline'  // source map 内联到文件中
   },
 });

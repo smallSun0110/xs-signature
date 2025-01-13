@@ -129,6 +129,7 @@ const toSign = () => {
  * 切换字体颜色
  */
 const toggleColorIcon = (item) => {
+  console.log(item);
   selectedColor.value = item.id;
   selectedColorValue.value = item.value;
   handleReset();
@@ -182,19 +183,20 @@ const handleReset = () => {
   emit("reset");
 };
 
-const baseFile = ref("");
 /**
  * 提交
  */
 const handleGenerate = () => {
+  let baseFile;
   const { isEmpty, data } = vueSignatureRef.value.saveSignature();
+
   const orientation = window.orientation;
   sliceBase64Image(data).then((slicedImages) => {
     rotateBase64Image(slicedImages, 270).then((img) => {
-      baseFile.value = img;
+      baseFile = img;
+      emit("submit", isEmpty, baseFile, orientation);
     });
   });
-  emit("submit", isEmpty, baseFile.value, orientation);
 };
 
 /* 手写签名部分方法封装处理
@@ -312,11 +314,15 @@ const rotateBase64Image = async (src, edg) => {
 };
 
 onMounted(() => {
-  window.addEventListener("orientationchange", handleOrientationChange);
+  window.addEventListener("orientationchange", handleOrientationChange, {
+    passive: true,
+  });
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("orientationchange", handleOrientationChange);
+  window.removeEventListener("orientationchange", handleOrientationChange, {
+    passive: true,
+  });
 });
 </script>
 
@@ -353,13 +359,17 @@ onBeforeUnmount(() => {
       <div id="main">
         <!-- 绘画板-->
         <VueSignaturePad
-          :key="options.penColor + options.maxWidth"
           ref="vueSignatureRef"
           :options="options"
+          :key="options.penColor + '-' + options.maxWidth"
           style="transform: rotate(-90deg); height: 100vmax"
         />
         <!-- Overlay层 -->
-        <div v-show="showOverlay" class="overlay" @touchenter="hideOverlay">
+        <div
+          v-show="showOverlay"
+          class="overlay"
+          @touchenter.passive="hideOverlay"
+        >
           <div>{{ overlayText }}</div>
         </div>
       </div>
