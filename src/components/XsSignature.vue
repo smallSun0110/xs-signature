@@ -148,10 +148,10 @@ const handleGenerate = async () => {
   if (!vueSignatureRef.value) return;
 
   const {isEmpty, data} = vueSignatureRef.value.saveSignature();
-  const orientation = window.screen.orientation;
+  const orientation = window.screen.orientation as any;
   try {
-    const slicedImage = await sliceBase64Image(data);
-    const rotatedImage = await rotateBase64Image(slicedImage, 270);
+    const slicedImage = await sliceBase64Image(data) as string;
+    const rotatedImage = await rotateBase64Image(slicedImage, 270) as string;
     emit("submit", isEmpty, rotatedImage, orientation);
   } catch (error) {
     console.error("Error processing signature:", error);
@@ -250,7 +250,7 @@ onBeforeUnmount(() => {
                   v-for="item in boldList"
                   :key="item.id"
                   :style="{
-                  height: `${item.value * 2 + 6}px`,
+                  height: `${item.value as number * 2 + 6}px`,
                   background: selectedColorValue,
                 }"
                   class="c-item bold"
@@ -307,7 +307,8 @@ onBeforeUnmount(() => {
     width: 100vw;
     height: 100vh;
   }
-  .tips{
+
+  .tips {
     display: flex;
     flex-direction: column;
     justify-content: center;
