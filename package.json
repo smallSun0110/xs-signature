@@ -1,6 +1,7 @@
 {
   "name": "xs-signature",
   "author": "smallSun <1248010874@qq.com>",
+  "version": "1.0.15",
   "license": "ISC",
   "description": "H5手写签名适配横屏",
   "main": "vite.config.js",
