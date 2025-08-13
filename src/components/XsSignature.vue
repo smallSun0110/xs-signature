@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
             ref="vueSignatureRef"
             :options="signatureOptions"
             :key="signatureOptions.penColor + '-' + signatureOptions.maxWidth"
-            style="transform: rotate(-90deg); height: 100vmax"
+            style="transform: rotate(-90deg); height: 100vmax;margin-top: -16px"
         />
         <!-- Overlay层 -->
         <div
@@ -287,6 +287,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   padding: 12px;
+  font-family: "AlibabaPuHuiTi_2_65_Medium", serif;
   @media screen and (orientation: portrait) {
     position: absolute;
     width: 100vh;
@@ -339,7 +340,7 @@ onBeforeUnmount(() => {
   }
 
   .header {
-    width: 100%;
+    width: calc(100vmax - 24px);
     height: 25px;
     display: flex;
     justify-content: flex-start;
@@ -358,13 +359,13 @@ onBeforeUnmount(() => {
       flex: 1;
       height: 25px;
       font-size: 18px;
-      font-family: "AlibabaPuHuiTi_2_65_Medium", serif;
       color: #000000;
       text-align: center;
     }
   }
 
   #main {
+    width: calc(100% - 24px);
     flex: 1;
     overflow: hidden;
     border-top: 1px solid #f3f5f5;
@@ -381,7 +382,7 @@ onBeforeUnmount(() => {
       justify-content: center;
       align-items: center;
       font-size: 50px;
-      font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
+      //font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
       color: #dedfe7;
       line-height: 70px;
     }
@@ -391,7 +392,7 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: calc(100vmax - 24px);
     height: 40px; /* 旋转后的高度 */
     z-index: 99;
     margin-bottom: 16px;
@@ -408,7 +409,6 @@ onBeforeUnmount(() => {
       width: 64px;
       height: 20px;
       font-size: 14px;
-      font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
       color: #5d5d5d;
       line-height: 20px;
     }
@@ -429,7 +429,9 @@ onBeforeUnmount(() => {
     }
 
     .f-b {
-      margin-right: 60px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
 
       .f-b-c {
         width: 64px;
@@ -524,7 +526,7 @@ onBeforeUnmount(() => {
     border-radius: 4px;
     margin-bottom: 3px;
     font-size: 10px;
-    font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
+    //font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
     color: #ffffff;
     line-height: 14px;
     display: flex;
