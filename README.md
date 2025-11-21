@@ -39,7 +39,7 @@ app.use(VueSignaturePad)
 app.use(XsSignature)
 
 在业务组件使用
-<xs-signature :custom='false'/>
+<xs-signature/>
 ```
 
 

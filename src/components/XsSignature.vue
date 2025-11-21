@@ -1,26 +1,22 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref, computed, onMounted, onBeforeUnmount} from "vue";
 import {sliceBase64Image, rotateBase64Image} from "./utils";
 
-// Constants
 const DEFAULT_COLORS = [
   {id: 1, text: "黑色", value: "rgba(44, 44, 44, 1)"},
   {id: 2, text: "红色", value: "rgba(209, 26, 48, 1)"},
   {id: 3, text: "蓝色", value: "rgba(0, 142, 224, 1)"},
 ];
-
 const DEFAULT_BOLD_OPTIONS = [
   {id: 1, text: "细", value: 3},
   {id: 2, text: "中等", value: 6},
   {id: 3, text: "粗", value: 9},
 ];
 
-// Component Options
 defineOptions({
   name: "XsSignature",
 });
 
-// Props
 interface SignatureOption {
   id: number;
   text: string;
@@ -34,7 +30,7 @@ interface SignatureOption {
  * @param  title 自定义标题
  * @param  showHeader 是否展示头部
  * @param  showFooter 是否展示底部
- * @param  custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'true'
+ * @param  custom 是否开启自定义模式(依旧保留头部、底部，不同于为可以自定义其中内容) 默认 'false'
  * @param  colorList 字体可选颜色集合 默认 '黑色' '红色' '蓝色'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  * @param  boldList 字体可选粗细集合 默认 '3' '6' '9'  ([{id:Number:xxx,text:String:xxx,value:String:xxx}])
  */
@@ -53,7 +49,7 @@ const props = withDefaults(defineProps<{
   title: "签署采集",
   showHeader: true,
   showFooter: true,
-  custom: true,
+  custom: false,
   colorList: () => [
     {id: 1, text: "黑色", value: "rgba(44, 44, 44, 1)"},
     {id: 2, text: "红色", value: "rgba(209, 26, 48, 1)"},
@@ -76,7 +72,6 @@ const emit = defineEmits<{
   (e: "submit", isEmpty: boolean, baseFile: string, orientation: number): void;
 }>();
 
-// Refs
 const showOverlay = ref(true);
 const isColorChange = ref(false);
 const isBoldChange = ref(false);
@@ -85,11 +80,6 @@ const selectedBold = ref<number | null>(null);
 const selectedColorValue = ref(DEFAULT_COLORS[0].value);
 const selectedBoldValue = ref(DEFAULT_BOLD_OPTIONS[0].value);
 const vueSignatureRef = ref<any>(null);
-
-// Computed
-const isVertica = computed(() => window.innerWidth > window.innerHeight);
-
-// Signature Options
 const signatureOptions = ref({
   penColor: DEFAULT_COLORS[0].value,
   maxWidth: DEFAULT_BOLD_OPTIONS[0].value,
@@ -100,11 +90,11 @@ const signatureOptions = ref({
   },
 });
 
-// Methods
+const isVertica = computed(() => window.innerWidth > window.innerHeight);
+
 const handleOrientationChange = () => {
   window.location.reload();
 };
-
 
 const toggleColorIcon = (item: SignatureOption) => {
   selectedColor.value = item.id;
@@ -144,9 +134,8 @@ const handleReset = () => {
   emit("reset");
 };
 
-const handleGenerate = async () => {
+const handleGenerate = async() => {
   if (!vueSignatureRef.value) return;
-
   const {isEmpty, data} = vueSignatureRef.value.saveSignature();
   const orientation = window.screen.orientation as any;
   try {
@@ -159,7 +148,6 @@ const handleGenerate = async () => {
   }
 };
 
-// Lifecycle Hooks
 onMounted(() => {
   window.addEventListener("orientationchange", handleOrientationChange, {passive: true});
 });
@@ -182,16 +170,16 @@ onBeforeUnmount(() => {
     </div>
     <!-- 页面具体内容 -->
     <div v-else class="xs-main">
-      <div class="header" v-if="showHeader">
-        <div class="h-t" v-if="!custom">{{ title }}</div>
+      <div v-if="showHeader" class="header">
+        <div v-if="!custom" class="h-t">{{ title }}</div>
         <slot name="xs-header"></slot>
       </div>
       <div id="main">
         <!-- 绘画板-->
         <VueSignaturePad
+            :key="signatureOptions.penColor + '-' + signatureOptions.maxWidth"
             ref="vueSignatureRef"
             :options="signatureOptions"
-            :key="signatureOptions.penColor + '-' + signatureOptions.maxWidth"
             style="transform: rotate(-90deg); height: 100vmax;margin-top: -16px"
         />
         <!-- Overlay层 -->
@@ -203,8 +191,8 @@ onBeforeUnmount(() => {
           <div>{{ overlayText }}</div>
         </div>
       </div>
-      <div class="footer" v-if="showFooter">
-        <div style="display: flex" v-if="!custom">
+      <div v-if="showFooter" class="footer">
+        <div v-if="!custom" style="display: flex">
           <!-- 底部筛选字体颜色区 -->
           <div class="f-m">
             <div class="f-w">笔迹颜色:</div>
@@ -269,7 +257,7 @@ onBeforeUnmount(() => {
             </div>
           </div>
         </div>
-        <div class="f-b" v-if="!custom">
+        <div v-if="!custom" class="f-b">
           <button class="f-b-c" @click="handleReset">清空</button>
           <button class="f-b-s" @click="handleGenerate">确定</button>
         </div>
@@ -382,7 +370,6 @@ onBeforeUnmount(() => {
       justify-content: center;
       align-items: center;
       font-size: 50px;
-      //font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
       color: #dedfe7;
       line-height: 70px;
     }
@@ -446,11 +433,11 @@ onBeforeUnmount(() => {
       }
 
       .f-b-c:hover {
-        transform: scale(1.05); /* 悬停放大效果 */
+        transform: scale(1.05);
       }
 
       .f-b-c:active {
-        transform: scale(0.95); /* 点击缩小效果 */
+        transform: scale(0.95);
       }
 
       .f-b-c:focus {
@@ -471,12 +458,12 @@ onBeforeUnmount(() => {
       }
 
       .f-b-s:hover {
-        transform: scale(1.05); /* 悬停放大效果 */
+        transform: scale(1.05);
       }
 
       .f-b-s:active {
-        background-color: rgba($color: #008ee0, $alpha: 0.8); /* 点击背景色 */
-        transform: scale(0.95); /* 点击缩小效果 */
+        background-color: rgba($color: #008ee0, $alpha: 0.8);
+        transform: scale(0.95);
       }
 
       .f-b-s:focus {
@@ -526,7 +513,6 @@ onBeforeUnmount(() => {
     border-radius: 4px;
     margin-bottom: 3px;
     font-size: 10px;
-    //font-family: "AlibabaPuHuiTi_2_55_Regular", serif;
     color: #ffffff;
     line-height: 14px;
     display: flex;

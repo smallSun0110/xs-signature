@@ -1,16 +1,29 @@
 {
   "name": "xs-signature",
-  "author": "smallSun <1248010874@qq.com>",
-  "version": "1.0.15",
+  "version": "1.2.1",
   "license": "ISC",
   "description": "H5手写签名适配横屏",
   "main": "vite.config.js",
-  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
+  },
+  "keywords": [
+    "signature",
+    "H5",
+    "mobile",
+    "typescript",
+    "pinia",
+    "vue3",
+    "vite",
+    "esm"
+  ],
+  "author": {
+    "name": "Simon",
+    "email": "1248010874@qq.com",
+    "url": "https://github.com/smallSun0110"
   },
   "dependencies": {
     "scss": "^0.2.4",
