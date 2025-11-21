@@ -1,9 +1,9 @@
 {
   "name": "xs-signature",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "license": "ISC",
   "description": "H5手写签名适配横屏",
-  "main": "vite.config.js",
+  "main": "xs-signature.es.js",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -14,6 +14,8 @@
     "signature",
     "H5",
     "mobile",
+    "canvas",
+    "component",
     "typescript",
     "pinia",
     "vue3",
